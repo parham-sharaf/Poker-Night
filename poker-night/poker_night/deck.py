@@ -1,5 +1,6 @@
 from loguru import logger
 from enum import Enum
+import random
 
 
 class SUITS(Enum):
@@ -32,11 +33,9 @@ class Deck:
         for card in self.cards:
             card.show()
 
+    def shuffle(self):
+        random.shuffle(self.cards)
 
-if __name__ == "__main__":
-    mydeck = Deck()
-    mydeck.build()
-    mydeck.display_cards()
 
 
 
