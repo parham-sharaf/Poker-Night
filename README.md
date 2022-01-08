@@ -24,8 +24,8 @@ Pycharm is the recommended IDE for coding any python related projects. Since poe
 ## Setup
 
 ```bash
-git clone 
-cd 
+git clone https://github.com/parham-sharaf/Poker-Night.git
+cd Poker-Night
 git checkout main
 ```
 ## Usage
