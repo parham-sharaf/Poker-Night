@@ -1,15 +1,12 @@
-from deck import *
-from player import Player
+from loguru import logger
+from game import Game
 
 if __name__ == "__main__":
+    logger.trace("Creating a new game")
+    game = Game()
 
-
-
-    logger.trace("Initializing the cards")
-    mydeck = Deck()
-    mydeck.build()
-    logger.trace("Done initializing the cards")
-    logger.debug("Shuffling the cards...")
-    mydeck.shuffle()
-
-    num_of_rounds = 0
+    blind_idx = 0           # this changes every round
+    game.set_blinds(blind_idx)
+    while not game.is_over():
+        game.play()
+        game.next_round()

@@ -36,6 +36,8 @@ class Deck:
     def shuffle(self):
         random.shuffle(self.cards)
 
+    def get_deck(self) -> list:
+        return self.cards
 
 
 

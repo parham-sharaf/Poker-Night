@@ -1,18 +1,13 @@
 from loguru import logger
-from player import Player
-from enum import Enum
-
-
-class STATUS(Enum):
-    CALL = 1
-    RAISE = 0
-    FOLD = 2
-    CHECK = 3
+from deck import Deck
+from player import Player, STATUS, BLIND
 
 
 class Game:
     def __init__(self):
-        self.round_num = None
+        self.blind = None
+        self.current_player = None
+        self.round_num = 0
         logger.info("Welcome to Poker Night")
         logger.info("Enter the number of players playing tonight")
         num_of_player = int(input("Number of player: "))
@@ -24,20 +19,54 @@ class Game:
             name_of_player = input("Name of the player: ")
             self.players.append(Player(name_of_player, self.idv_share))
 
+        logger.trace("Initializing the cards")
+        my_deck = Deck()
+        my_deck.build()
+        logger.trace("Done initializing the cards")
+        logger.debug("Shuffling the cards...")
+        my_deck.shuffle()
+
+    def play(self):
+        if self.round_num == 0:
+            for index in range(len(self.players)):
+                if index == self.blind:
+                    self.players[index].set_blind(BLIND.SMALL_BLIND)
+                    self.players[(index + 1) % len(self.players)].set_blind(BLIND.BIG_BLIND)
+                    break
+            self.current_player = self.blind + 2
+
+        elif self.round_num == 1:
+            self.current_player = (self.current_player + 1) % len(self.players)
+            while self.current_player != self.blind + 2:
+                logger.debug(f"Your turn {self.players[self.current_player].get_name()}: ")
+                print("CALL: 1")
+                print("RAISE: 2")
+                print("FOLD: 3")
+                decision = int(input("--: "))
+                self.players[self.current_player].set_status(STATUS(decision))
+
     def is_over(self) -> bool:
         if self.round_num == 5:
             return True
         else:
             folds = 0
             for player in self.players:
-                if player.status() == STATUS.FOLD:
+                if player.get_status() == STATUS.FOLD:
                     folds = folds + 1
-            if folds == self.players.count():
+            if folds == len(self.players):
                 return True
         return False
 
+    def set_blinds(self, blind):
+        self.blind = blind
+
     def next_round(self):
         self.round_num += 1
+
+    def pass_card(self, cards):
+        for player in self.players:
+            player.card_one = cards.pop()
+            player.card_two = cards.pop()
 
     def min_bet_amount(self):
         pass
