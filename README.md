@@ -1,5 +1,6 @@
 # Poker-Night
 Authors: [Jason Guan](https://github.com/jasonguan067), [Kennedy Janto](https://github.com/KennedyJanto2), [Parham Sharefoleslami](https://github.com/parham-sharaf)
+![PokerNight_2](https://user-images.githubusercontent.com/74116582/148866742-ac97c78f-f5ce-4c6c-9db1-e81a6e16fa94.jpg)
 
 ## Requirments
 
