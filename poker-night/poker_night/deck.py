@@ -1,4 +1,4 @@
-from loguru import logger
+#from loguru import logger
 from enum import Enum
 import random
 
@@ -21,7 +21,7 @@ class Card:
 
 class Deck:
     def __init__(self):
-        logger.trace("Initializing the Deck")
+        print("Initializing the Deck")
         self.cards = []
 
     def build(self):

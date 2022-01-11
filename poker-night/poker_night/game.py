@@ -1,4 +1,4 @@
-from loguru import logger
+#from loguru import logger
 from deck import Deck
 from player import Player, STATUS, BLIND
 
@@ -8,10 +8,10 @@ class Game:
         self.blind = None
         self.current_player = None
         self.round_num = 0
-        logger.info("Welcome to Poker Night")
-        logger.info("Enter the number of players playing tonight")
+        print("Welcome to Poker Night")                        
+        print("Enter the number of players playing tonight")   
         num_of_player = int(input("Number of player: "))
-        logger.info("How much money is each player starting with?")
+        print("How much money is each player starting with?")  
         self.idv_share = int(input("Enter the starting money: "))
 
         self.players = []
@@ -19,11 +19,11 @@ class Game:
             name_of_player = input("Name of the player: ")
             self.players.append(Player(name_of_player, self.idv_share))
 
-        logger.trace("Initializing the cards")
+        print("Initializing the cards")                          
         my_deck = Deck()
         my_deck.build()
-        logger.trace("Done initializing the cards")
-        logger.debug("Shuffling the cards...")
+        print ("Done initializing the cards")                   
+        print ("Shuffling the cards...")
         my_deck.shuffle()
 
     def play(self):
@@ -38,7 +38,7 @@ class Game:
         elif self.round_num == 1:
             self.current_player = (self.current_player + 1) % len(self.players)
             while self.current_player != self.blind + 2:
-                logger.debug(f"Your turn {self.players[self.current_player].get_name()}: ")
+                print(f"Your turn {self.players[self.current_player].get_name()}: ")
                 print("CALL: 1")
                 print("RAISE: 2")
                 print("FOLD: 3")
